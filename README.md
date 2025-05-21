@@ -25,7 +25,7 @@ Cada pasta representa um microserviço independente.
 
 ### 🔁 Clonando o repositório
 ```bash
-git clone https://github.com/EdurdoAndrade-Ds/ecommerce-microservices.git
+git clone https://github.com/EdurdoAndrade-Ds/eccomerce-java.git
 cd ecommerce-microservices
 ```
 
