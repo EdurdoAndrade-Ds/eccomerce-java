@@ -1,0 +1,26 @@
+docker-compose up 
+docker-compose down -v
+docker-compose up --build
+https://bcrypt-generator.com/
+gen_random_uuid()
+http://localhost:5050-banco de dados
+http://localhost:8080/api/swagger-ui/index.html -testar
+    API: http://localhost:8080/api
+    Swagger UI: http://localhost:8080/api/swagger-ui/index.htm  l
+    PgAdmin: http://localhost:5050 (Email: admin@admin.com, Senha: admin)
+ Usuário: admin
+ Senha: admin
+ Database: ecommerce_app
+Administrador do Sistema
+ Usuário: admin
+ Senha: edu123
+
+INSERT INTO admin_users (id, username, email, password, created_at, active) 
+VALUES (
+    '550e8400-e29b-41d4-a716-446655440000', 
+    'admin', 
+    'admin@ecommerceapp.com', 
+    '$2a$12$MRp/aMjxxba6X1ETJMmee.d/BYRLhRv38g7adG2ceVOE5SIOiTrTC', 
+    CURRENT_TIMESTAMP, 
+    TRUE
+) ON CONFLICT DO NOTHING;
