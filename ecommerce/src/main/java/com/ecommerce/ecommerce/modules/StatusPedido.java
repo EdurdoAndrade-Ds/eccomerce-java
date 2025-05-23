@@ -1,0 +1,3 @@
+class enum StatusPedido {
+    NOVO, PROCESSANDO, CONCLUIDON CANCELADO
+}
