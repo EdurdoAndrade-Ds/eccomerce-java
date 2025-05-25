@@ -46,4 +46,8 @@ public class ClienteController {
     public ResponseEntity<List<Cliente>> searchForEmail(@RequestParam String email) {
         return ResponseEntity.ok(clienteService.searchForEmail(email));
     }
+
+    public void teste() {
+
+    }
 }
