@@ -1,6 +1,11 @@
+package com.ecommerce.ecommerce.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import com.ecommerce.ecommerce.modules.Cliente;
+import com.ecommerce.ecommerce.repository.ClienteRepository;
+import com.ecommerce.ecommerce.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClienteService {
