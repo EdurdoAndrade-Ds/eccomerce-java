@@ -1,3 +1,7 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
 @Service
 public class ClienteService {
 
@@ -5,7 +9,7 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     // salvar cliente
-    public Cliente savecClient(Cliente cliente) {
+    public Cliente saveClient(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
@@ -16,24 +20,25 @@ public class ClienteService {
 
     // buscar por id
     public Cliente searchForIdClient(Long id) {
-        return clienteRepository.findAll(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com id" + id))/;
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com id " + id));
     }
 
     // atualizar cliente
     public Cliente updateClient(Long id, Cliente clienteUpdated) {
-        Cliente cliente = searchForIdCliente(id);
+        Cliente cliente = searchForIdClient(id);
         cliente.setName(clienteUpdated.getName());
         cliente.setEmail(clienteUpdated.getEmail());
         cliente.setTelefone(clienteUpdated.getTelefone());
         return clienteRepository.save(cliente);
     }
 
-    // delete cliente
+    // deletar cliente
     public void deleteClient(Long id) {
         clienteRepository.deleteById(id);
     }
 
+    // buscar clientes por email
     public List<Cliente> searchForEmail(String email) {
         return clienteRepository.findByEmailContaining(email);
     }

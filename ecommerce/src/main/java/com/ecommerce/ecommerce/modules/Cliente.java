@@ -1,3 +1,6 @@
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 @Entity
 public class Cliente {
     @Id
@@ -27,7 +30,7 @@ public class Cliente {
         return name;
     }
 
-    public void setNome(String nome) {
+    public void setName(String name) {
         this.name = name;
     }
 

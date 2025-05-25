@@ -1,3 +1,6 @@
-class enum StatusPedido {
-    NOVO, PROCESSANDO, CONCLUIDON CANCELADO
+public enum StatusPedido {
+    NOVO,
+    PROCESSANDO,
+    CONCLUIDO,
+    CANCELADO
 }
