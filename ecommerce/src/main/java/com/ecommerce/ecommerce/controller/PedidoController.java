@@ -2,44 +2,53 @@ package com.ecommerce.ecommerce.controller;
 
 import com.ecommerce.ecommerce.modules.Pedido;
 import com.ecommerce.ecommerce.service.PedidoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
 
-    @Autowired
-    private PedidoService pedidoService;
+    private final PedidoService pedidoService;
+
+    public PedidoController(PedidoService pedidoService) {
+        this.pedidoService = pedidoService;
+    }
 
     @PostMapping
-    public ResponseEntity<Pedido> create(@Valid @RequestBody Pedido pedido) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.savePedido(pedido));
+    public ResponseEntity<Pedido> criar(@RequestBody Pedido pedido) {
+        Pedido novoPedido = pedidoService.salvar(pedido);
+        return ResponseEntity.ok(novoPedido);
     }
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> list() {
-        return ResponseEntity.ok(pedidoService.listAllPedidos());
+    public ResponseEntity<List<Pedido>> listarTodos() {
+        return ResponseEntity.ok(pedidoService.listarTodos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> searchForIdPedido(@PathVariable Long id) {
-        return ResponseEntity.ok(pedidoService.searchForIdPedido(id));
+    public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
+        return pedidoService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedido> updatePedido(@PathVariable Long id, @Valid @RequestBody Pedido pedido) {
-        return ResponseEntity.ok(pedidoService.updatePedido(id, pedido));
+    public ResponseEntity<Pedido> atualizar(@PathVariable Long id, @RequestBody Pedido pedidoAtualizado) {
+        return pedidoService.buscarPorId(id)
+                .map(pedidoExistente -> {
+                    pedidoAtualizado.setId(id);
+                    Pedido atualizado = pedidoService.salvar(pedidoAtualizado);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePedido(@PathVariable Long id) {
-        pedidoService.deletePedido(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        pedidoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
