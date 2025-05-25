@@ -1,7 +1,7 @@
-package com.ecommerce.ecommerce.controllers;
+package com.ecommerce.ecommerce.controller;
 
-import com.ecommerce.ecommerce.models.Pedido;
-import com.ecommerce.ecommerce.services.PedidoService;
+import com.ecommerce.ecommerce.modules.Pedido;
+import com.ecommerce.ecommerce.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

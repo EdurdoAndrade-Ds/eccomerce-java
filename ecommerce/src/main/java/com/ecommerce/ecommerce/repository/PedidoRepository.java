@@ -1,8 +1,9 @@
-package com.ecommerce.ecommerce.repositories;
+package com.ecommerce.ecommerce.repository;
 
-import com.ecommerce.ecommerce.models.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.ecommerce.ecommerce.modules.Pedido;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {

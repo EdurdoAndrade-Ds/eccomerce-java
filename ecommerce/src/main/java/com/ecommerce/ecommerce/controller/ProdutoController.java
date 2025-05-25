@@ -1,7 +1,7 @@
-package com.ecommerce.ecommerce.controllers;
+package com.ecommerce.ecommerce.controller;
 
-import com.ecommerce.ecommerce.models.Produto;
-import com.ecommerce.ecommerce.services.ProdutoService;
+import com.ecommerce.ecommerce.modules.Produto;
+import com.ecommerce.ecommerce.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,27 +19,30 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<Produto> create(@Valid @RequestBody Produto produto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.saveProduto(produto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.salvar(produto));
     }
 
     @GetMapping
     public ResponseEntity<List<Produto>> list() {
-        return ResponseEntity.ok(produtoService.listAllProdutos());
+        return ResponseEntity.ok(produtoService.buscarTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> searchForIdProduto(@PathVariable Long id) {
-        return ResponseEntity.ok(produtoService.searchForIdProduto(id));
+        return produtoService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Produto> updateProduto(@PathVariable Long id, @Valid @RequestBody Produto produto) {
-        return ResponseEntity.ok(produtoService.updateProduto(id, produto));
+        produto.setId(id);
+        return ResponseEntity.ok(produtoService.atualizar(produto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduto(@PathVariable Long id) {
-        produtoService.deleteProduto(id);
+        produtoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
