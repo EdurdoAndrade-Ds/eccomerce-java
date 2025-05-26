@@ -1,0 +1,59 @@
+services:
+  app:
+    container_name: ecommerce_db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ecommerce_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=100521
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ecommerce_app_network
+    restart: always
+
+  postgres:
+    container_name: ecommerce_app_postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=100521
+      - POSTGRES_DB=ecommerce_app
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d ecommerce_app"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecommerce_app_network
+    restart: always
+
+  pgadmin:
+    container_name: ecommerce_app_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    networks:
+      - ecommerce_app_network
+    restart: always
+
+networks:
+  gestao_vagas_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
