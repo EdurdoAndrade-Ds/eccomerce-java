@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,6 +25,9 @@ public class Produto {
     @NotNull
     @DecimalMin("0.0")
     private BigDecimal price;
+
+    @Min(0)
+    private int quantidadeEstoque;
 
     public Long getId() {
         return id;
@@ -55,5 +59,13 @@ public class Produto {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 }
